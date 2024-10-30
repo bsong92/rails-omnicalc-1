@@ -23,4 +23,27 @@ class ZebraController < ApplicationController
     render({ :template => "calc_templates/square_root_results" })
   end
 
+  def payment
+    render({ :template => "calc_templates/payment" })
+  end
+
+  def payment_results
+    @apr = params.fetch("user_apr").to_f
+    @years = params.fetch("user_years").to_i
+    @principal = params.fetch("user_pv").to_f
+  
+    monthly_rate = @apr / 100 / 12
+    num_payments = @years * 12
+  
+    if monthly_rate == 0
+      @payment = @principal / num_payments
+    else
+      numerator = monthly_rate * @principal
+      denominator = 1 - (1 + monthly_rate) ** -num_payments
+      @payment = numerator / denominator
+    end
+    
+    render({ :template => "calc_templates/payment_results" })
+  end
+
 end
