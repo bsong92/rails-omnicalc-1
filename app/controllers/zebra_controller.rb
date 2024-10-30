@@ -12,4 +12,15 @@ class ZebraController < ApplicationController
     @the_result = @the_num ** 2
     render({ :template => "calc_templates/square_results" })
   end
+
+  def square_root
+    render({ :template => "calc_templates/square_root" })
+  end
+
+  def square_root_results
+    @the_num = params.fetch("user_number").to_f
+    @the_result = Math.sqrt(@the_num)
+    render({ :template => "calc_templates/square_root_results" })
+  end
+
 end
