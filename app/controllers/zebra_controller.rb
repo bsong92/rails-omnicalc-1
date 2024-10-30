@@ -46,4 +46,17 @@ class ZebraController < ApplicationController
     render({ :template => "calc_templates/payment_results" })
   end
 
+  def random_new
+    render({ :template => "calc_templates/random_new" })
+  end
+
+  def random_results
+    @min_value = params.fetch("user_min").to_f
+    @max_value = params.fetch("user_max").to_f
+  
+    @random_number = rand(@min_value..@max_value)
+    render({ :template => "calc_templates/random_results" })
+  end
+
+
 end
